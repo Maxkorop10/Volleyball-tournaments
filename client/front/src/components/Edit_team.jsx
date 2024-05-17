@@ -20,7 +20,7 @@ const Edit_team = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/teams?team_id=${id}`);
+            const response = await axios.get(`http://localhost:2000/teams?team_id=${id}`);
             const { team_name, country, master, rating } = response.data;
             const newData = {
               team_name: team_name || '',
@@ -44,7 +44,7 @@ const Edit_team = () => {
 
     const handleSave = async () => {
         try {
-            await axios.put(`http://localhost:5000/teams?team_id=${id}`, AddData);
+            await axios.put(`http://localhost:2000/teams?team_id=${id}`, AddData);
             navigate("/");
         } catch (error) {
             console.log(error);

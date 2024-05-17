@@ -23,7 +23,7 @@ const Edit_stat = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/stats?stats_id=${id}`);
+            const response = await axios.get(`http://localhost:2000/stats?stats_id=${id}`);
             const { points, attacks, blocks, assists, serves, receptions, errors } = response.data;
             const newData = {
                 points: points || '',
@@ -50,7 +50,7 @@ const Edit_stat = () => {
 
     const handleSave = async () => {
         try {
-            await axios.put(`http://localhost:5000/stats?stats_id=${id}`, AddData);
+            await axios.put(`http://localhost:2000/stats?stats_id=${id}`, AddData);
             navigate("/stats");
         } catch (error) {
             console.log(error);

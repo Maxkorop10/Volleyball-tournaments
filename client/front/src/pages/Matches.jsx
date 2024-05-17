@@ -24,7 +24,7 @@ const Matches = () => {
 
     const fetchMatches = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/match');
+            const response = await axios.get('http://localhost:2000/match');
             setMatches(response.data)
         } catch (error) {
             console.error('Error fetching matches:', error)
@@ -33,7 +33,7 @@ const Matches = () => {
 
     const fetchTeams = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/teams')
+            const response = await axios.get('http://localhost:2000/teams')
             setTeams(response.data)
         } catch (error) {
             console.error('Error fetching teams:', error)
@@ -42,7 +42,7 @@ const Matches = () => {
 
     const fetchTournaments = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/tournaments')
+            const response = await axios.get('http://localhost:2000/tournaments')
             setTournaments(response.data)
         } catch (error) {
             console.error('Error fetching tournaments:', error)
@@ -56,8 +56,8 @@ const Matches = () => {
 
     const handleAddMatch = async () => {
         try {
-            await axios.post('http://localhost:5000/match', newMatch)
-            fetchMatches();
+            await axios.post('http://localhost:2000/match', newMatch)
+            fetchMatches()
             setNewMatch({
                 tournament_id: '',
                 first_team_id: '',
@@ -73,7 +73,7 @@ const Matches = () => {
 
     const handleDeleteMatch = async (matchId) => {
         try {
-          await axios.delete(`http://localhost:5000/match?match_id=${matchId}`)
+          await axios.delete(`http://localhost:2000/match?match_id=${matchId}`)
           fetchMatches()
         } catch (error) {
           console.error('Error deleting match:', error)
@@ -81,21 +81,21 @@ const Matches = () => {
     }
 
     const getTeamNameById = (teamId) => {
-        const team = teams.find(team => team.team_id === teamId);
-        return team ? team.team_name : '';
+        const team = teams.find(team => team.team_id === teamId)
+        return team ? team.team_name : ''
     }
 
     return (
         <>
-            <h1 className='mt-[-140px] mb-[20px] font-bold'>Matches</h1>
+            <h1 className='mt-[20px] mb-[20px] font-bold'>Matches</h1>
 
-            <div className='mb-[15px] flex flex-row ml-[12%]'>
+            <div className='mb-[15px] flex flex-row relative'>
                 <select
-                    className='w-[94px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
+                    className='w-[165px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
                     name="tournament_id"
                     value={newMatch.tournament_id}
-                    onChange={handleInputChange}
-                >
+                    onChange={handleInputChange}>
+
                     <option value="">Select Tournament</option>
                     {tournaments.map((tournament) => (
                         <option key={tournament.tournament_id} value={tournament.tournament_id}>
@@ -105,11 +105,11 @@ const Matches = () => {
                 </select>
 
                 <select
-                    className='w-[94px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
+                    className='w-[140px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
                     name="first_team_id"
                     value={newMatch.first_team_id}
-                    onChange={handleInputChange}
-                >
+                    onChange={handleInputChange}>
+
                     <option value="">Select First Team</option>
                     {teams.map((team) => (
                         <option key={team.team_id} value={team.team_id}>
@@ -119,11 +119,11 @@ const Matches = () => {
                 </select>
 
                 <select
-                    className='w-[94px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
+                    className='w-[140px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
                     name="second_team_id"
                     value={newMatch.second_team_id}
-                    onChange={handleInputChange}
-                >
+                    onChange={handleInputChange}>
+
                     <option value="">Select Second Team</option>
                     {teams.map((team) => (
                         <option key={team.team_id} value={team.team_id}>
@@ -133,7 +133,7 @@ const Matches = () => {
                 </select>
 
                 <input
-                    className='w-[110px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
+                    className='w-[125px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
                     type="date"
                     name="start_datetime"
                     value={newMatch.start_datetime}
@@ -142,7 +142,7 @@ const Matches = () => {
                 />
 
                 <input
-                    className='w-[94px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
+                    className='w-[110px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
                     type="text"
                     name="first_team_score"
                     value={newMatch.first_team_score}
@@ -151,7 +151,7 @@ const Matches = () => {
                 />
 
                 <input
-                    className='w-[94px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
+                    className='w-[110px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
                     type="text"
                     name="second_team_score"
                     value={newMatch.second_team_score}

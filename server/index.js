@@ -12,6 +12,6 @@ app.get("/", async (req, res) => {
     res.status(200).json({message: 'Server is working!'})
 })
 
-app.listen(5000, () => {
-    console.log("Server has started on port 5000")
+app.listen(2000, () => {
+    console.log("Server has started on port 2000")
 })

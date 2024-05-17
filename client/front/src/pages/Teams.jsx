@@ -18,7 +18,7 @@ const Teams = () => {
 
     const fetchTeams = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/teams')
+        const response = await axios.get('http://localhost:2000/teams')
         setTeam(response.data)
       } catch (error) {
         console.error('Error fetching teams:', error)
@@ -26,13 +26,13 @@ const Teams = () => {
     }
 
     const handleInputChange = (e) => {
-      const { name, value } = e.target;
+      const { name, value } = e.target
       setNewTeam({ ...newTeam, [name]: value })
     }
 
     const handleAddTeam = async () => {
         try {
-          await axios.post('http://localhost:5000/teams', newTeam)
+          await axios.post('http://localhost:2000/teams', newTeam)
           fetchTeams()
           setNewTeam({
             team_name: '',
@@ -47,7 +47,7 @@ const Teams = () => {
 
     const handleDeleteTeam = async (teamId) => {
         try {
-          await axios.delete(`http://localhost:5000/teams?team_id=${teamId}`)
+          await axios.delete(`http://localhost:2000/teams?team_id=${teamId}`)
           fetchTeams()
         } catch (error) {
           console.error('Error deleting team:', error)
@@ -56,11 +56,11 @@ const Teams = () => {
 
   const handleSearch = async (query) => {
     if (query.trim() === "") {
-        fetchTeams();
-        return;
+        fetchTeams()
+        return
     }
     try {
-      const response = await axios.get(`http://localhost:5000/teams/search/${query}`)
+      const response = await axios.get(`http://localhost:2000/teams/search/${query}`)
       setTeam(response.data)
     } catch (error) {
       console.error('Error searching teams:', error)
@@ -113,10 +113,10 @@ const Teams = () => {
           </tbody>
         </table>
 
-        <div className='mb-[15px] mt-[15px] flex flex-row ml-[90px]'>
+        <div className='mb-[15px] mt-[15px] flex flex-row relative'>
             
           <input
-            className='w-[90px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
+            className='w-[140px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
             type="text"
             name="team_name"
             value={newTeam.team_name}
@@ -125,7 +125,7 @@ const Teams = () => {
           />
 
           <input
-            className='w-[90px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
+            className='w-[140px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
             type="text"
             name="country"
             value={newTeam.country}
@@ -134,7 +134,7 @@ const Teams = () => {
           />
 
           <input
-            className='w-[90px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
+            className='w-[140px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
             type="text"
             name="master"
             value={newTeam.master}
@@ -143,7 +143,7 @@ const Teams = () => {
           />
             
           <input
-            className='w-[90px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
+            className='w-[140px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
             type="text"
             name="rating"
             value={newTeam.rating}

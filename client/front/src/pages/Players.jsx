@@ -20,7 +20,7 @@ const Players = () => {
 
     const fetchPlayers = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/players');
+            const response = await axios.get('http://localhost:2000/players');
             setPlayer(response.data)
         } catch (error) {
             console.error('Error fetching players:', error)
@@ -29,7 +29,7 @@ const Players = () => {
 
     const fetchTeams = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/teams')
+            const response = await axios.get('http://localhost:2000/teams')
             setTeams(response.data)
         } catch (error) {
             console.error('Error fetching teams:', error)
@@ -43,7 +43,7 @@ const Players = () => {
 
     const handleAddPlayer = async () => {
         try {
-            await axios.post('http://localhost:5000/players', newPlayer)
+            await axios.post('http://localhost:2000/players', newPlayer)
             fetchPlayers();
             setNewPlayer({
                 first_name: '',
@@ -66,31 +66,31 @@ const Players = () => {
 
     const handleDeletePlayer = async (playerId) => {
         try {
-          await axios.delete(`http://localhost:5000/players?player_id=${playerId}`)
+          await axios.delete(`http://localhost:2000/players?player_id=${playerId}`)
           fetchPlayers()
         } catch (error) {
           console.error('Error deleting player:', error)
         }
     }
 
-    const [playerInfo, setPlayerInfo] = useState([]);
+    const [playerInfo, setPlayerInfo] = useState([])
 
     const GetInfo = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/player_info');
-            setPlayerInfo(response.data);
+            const response = await axios.get('http://localhost:2000/player_info')
+            setPlayerInfo(response.data)
         } catch (error) {
-            console.error('Error fetching info:', error);
+            console.error('Error fetching info:', error)
         }
-    };
+    }
 
     return (
         <>
             <h1 className='mt-[40px] mb-[20px] font-bold'>Players</h1>
 
-            <div className='mb-[15px] flex flex-row ml-[11%]'>
+            <div className='mb-[15px] relative flex flex-row'>
                 <input
-                    className='w-[94px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
+                    className='w-[130px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
                     type="text"
                     name="first_name"
                     value={newPlayer.first_name}
@@ -99,7 +99,7 @@ const Players = () => {
                 />
 
                 <input
-                    className='w-[94px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
+                    className='w-[130px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
                     type="text"
                     name="last_name"
                     value={newPlayer.last_name}
@@ -108,11 +108,11 @@ const Players = () => {
                 />
 
                 <select
-                    className='w-[94px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
+                    className='w-[130px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
                     name="team_id"
                     value={newPlayer.team_id}
-                    onChange={handleInputChange}
-                >
+                    onChange={handleInputChange}>
+
                     <option value="">Select Team</option>
                     {teams.map((team) => (
                         <option key={team.team_id} value={team.team_id}>
@@ -122,11 +122,11 @@ const Players = () => {
                 </select>
 
                 <select
-                    className='w-[94px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
+                    className='w-[140px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
                     name="position"
                     value={newPlayer.position}
-                    onChange={handleInputChange}
-                >
+                    onChange={handleInputChange}>
+
                     <option value="">Select Position</option>
                     {positionOptions.map((option) => (
                         <option key={option.value} value={option.value}>
@@ -136,7 +136,7 @@ const Players = () => {
                 </select>
 
                 <input
-                    className='w-[110px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
+                    className='w-[120px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
                     type="date"
                     name="date_of_birth"
                     value={newPlayer.date_of_birth}

@@ -19,7 +19,7 @@ const Edit_player = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/players?player_id=${id}`);
+            const response = await axios.get(`http://localhost:2000/players?player_id=${id}`);
             const { first_name, last_name, position } = response.data;
             const newData = {
                 first_name: first_name || '',
@@ -42,7 +42,7 @@ const Edit_player = () => {
 
     const handleSave = async () => {
         try {
-            await axios.put(`http://localhost:5000/players?player_id=${id}`, AddData);
+            await axios.put(`http://localhost:2000/players?player_id=${id}`, AddData);
             navigate("/players");
         } catch (error) {
             console.log(error);

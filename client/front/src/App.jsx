@@ -18,7 +18,7 @@ function App() {
   return (
     <BrowserRouter>
       <div>
-      <header className="bg-gray-800 fixed top-0 left-0 w-full py-2 px-4 flex justify-between items-center">
+        <header className="bg-gray-800 fixed top-0 left-0 w-full py-2 px-4 flex justify-between items-center">
           <Link to="/" className="text-white text-lg font-bold">
             Teams
           </Link>

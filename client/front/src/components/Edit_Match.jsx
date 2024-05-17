@@ -19,7 +19,7 @@ const Edit_Match = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/match?match_id=${id}`);
+            const response = await axios.get(`http://localhost:2000/match?match_id=${id}`);
             const { start_datetime, first_team_score, second_team_score } = response.data;
             const newData = {
                 start_datetime: start_datetime || '',
@@ -42,7 +42,7 @@ const Edit_Match = () => {
 
     const handleSave = async () => {
         try {
-            await axios.put(`http://localhost:5000/match?match_id=${id}`, AddData)
+            await axios.put(`http://localhost:2000/match?match_id=${id}`, AddData)
             navigate("/matches")
         } catch (error) {
             console.log(error)

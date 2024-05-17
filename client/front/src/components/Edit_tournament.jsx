@@ -1,55 +1,81 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 
 const Edit_tournament = () => {
 
-    const { id } = useParams();
-    const navigate = useNavigate();
+    const { id } = useParams()
+    const navigate = useNavigate()
     const [AddData, setAddData] = useState({
         tournament_name: '',
+        first_team_id: '',
+        second_team_id: '',
+        third_team_id: '',
+        fourth_team_id: '',
         location: '',
         start_date: '',
         end_date: '',
         id: ''
-    });
+    })
+
+    const [teams, setTeams] = useState([])
 
     useEffect(() => {
-        fetchData();
-    }, [id]);
+        fetchData()
+        fetchTeams()
+    }, [id])
 
     const fetchData = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/tournaments?tournament_id=${id}`);
-            const { tournament_name, location, start_date, end_date } = response.data;
+            const response = await axios.get(
+                `http://localhost:2000/tournaments?tournament_id=${id}`
+            )
+            
+            const { 
+                tournament_name, first_team_id, second_team_id, third_team_id, fourth_team_id, location, start_date, end_date 
+            } = response.data
+
             const newData = {
                 tournament_name: tournament_name || '',
+                first_team_id: first_team_id || '',
+                second_team_id: second_team_id || '',
+                third_team_id: third_team_id || '',
+                fourth_team_id: fourth_team_id || '',
                 location: location || '',
                 start_date: start_date || '',
                 end_date: end_date || '',
-              id: id || ''
-            };
+                id: id || ''
+            }
 
-            setAddData(newData);
+            setAddData(newData)
         } catch (error) {
-            console.log(error);
-            throw error;
+            console.log(error)
+            throw error
         }
-    };
+    }
+
+    const fetchTeams = async () => {
+        try {
+            const response = await axios.get('http://localhost:2000/teams')
+            setTeams(response.data)
+        } catch (error) {
+            console.error('Error fetching teams:', error)
+        }
+    }
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setAddData({ ...AddData, [name]: value });
-    };
+        const { name, value } = e.target
+        setAddData({ ...AddData, [name]: value })
+    }
 
     const handleSave = async () => {
         try {
-            await axios.put(`http://localhost:5000/tournaments?tournament_id=${id}`, AddData);
-            navigate("/tournaments");
+            await axios.put(`http://localhost:2000/tournaments?tournament_id=${id}`, AddData)
+            navigate("/tournaments")
         } catch (error) {
-            console.log(error);
+            console.log(error)
         }
-    };
+    }
 
     return (
         <div className="flex justify-center items-center">
@@ -64,6 +90,62 @@ const Edit_tournament = () => {
                             value={AddData.tournament_name}
                             onChange={handleInputChange}
                         />
+
+                        <select
+                            className='w-[94px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
+                            name="first_team_id"
+                            value={AddData.first_team_id}
+                            onChange={handleInputChange}>
+
+                            <option value="">1st Team</option>
+                            {teams.map((team) => (
+                                <option key={team.team_id} value={team.team_id}>
+                                    {team.team_name}
+                                </option>
+                            ))}
+                        </select>
+
+                        <select
+                            className='w-[94px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
+                            name="second_team_id"
+                            value={AddData.second_team_id}
+                            onChange={handleInputChange}>
+
+                            <option value="">2nd Team</option>
+                            {teams.map((team) => (
+                                <option key={team.team_id} value={team.team_id}>
+                                    {team.team_name}
+                                </option>
+                            ))}
+                        </select>
+
+                        <select
+                            className='w-[94px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
+                            name="third_team_id"
+                            value={AddData.third_team_id}
+                            onChange={handleInputChange}>
+
+                            <option value="">3rd Team</option>
+                            {teams.map((team) => (
+                                <option key={team.team_id} value={team.team_id}>
+                                    {team.team_name}
+                                </option>
+                            ))}
+                        </select>
+
+                        <select
+                            className='w-[94px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
+                            name="fourth_team_id"
+                            value={AddData.fourth_team_id}
+                            onChange={handleInputChange}>
+
+                            <option value="">4th Team</option>
+                            {teams.map((team) => (
+                                <option key={team.team_id} value={team.team_id}>
+                                    {team.team_name}
+                                </option>
+                            ))}
+                        </select>
             
                         <input
                             className='w-[90px] mr-[10px] border-[1px] border-[solid] border-[#232323]'

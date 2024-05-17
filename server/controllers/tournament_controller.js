@@ -11,10 +11,11 @@ const getTournament = async (req, res) => {
 
 const postTournament = async (req, res) => {
     try {
-        const { tournament_name, location, start_date, end_date } = req.body
+        const { tournament_name, first_team_id, second_team_id, third_team_id, fourth_team_id, location, start_date, end_date } = req.body;
         const new_tournament = await pool.query(
-            `Insert into Tournament (tournament_name, location, start_date, end_date) values ('${tournament_name}', '${location}', '${start_date}', '${end_date}')`
-        )
+            `INSERT INTO Tournament (tournament_name, first_team_id, second_team_id, third_team_id, fourth_team_id, location, start_date, end_date) 
+            VALUES ('${tournament_name}', ${first_team_id}, ${second_team_id}, ${third_team_id}, ${fourth_team_id}, '${location}', '${start_date}', '${end_date}') RETURNING *`
+        );
         res.json(new_tournament)
     } catch (error) {
         console.log(error)
@@ -23,9 +24,9 @@ const postTournament = async (req, res) => {
 
 const upd_Tournament = async (req, res) => {
     try {
-        const { tournament_name, location, start_date, end_date, id } = req.body
+        const { tournament_name, first_team_id, second_team_id, third_team_id, fourth_team_id, location, start_date, end_date, id } = req.body
         const put_tournament = await pool.query(
-            `Update Tournament set tournament_name = '${tournament_name}', location = '${location}', start_date = '${start_date}', end_date = '${end_date}' where tournament_id = '${id}'`
+            `Update Tournament set tournament_name = '${tournament_name}', first_team_id = '${first_team_id}', second_team_id = '${second_team_id}', third_team_id = '${third_team_id}', fourth_team_id = '${fourth_team_id}', location = '${location}', start_date = '${start_date}', end_date = '${end_date}' where tournament_id = '${id}'`
         )
         res.json(put_tournament)
     } catch (error) {

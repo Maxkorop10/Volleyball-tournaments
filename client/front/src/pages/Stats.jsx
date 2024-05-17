@@ -27,7 +27,7 @@ const Stats = () => {
 
     const fetchStats = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/stats');
+            const response = await axios.get('http://localhost:2000/stats')
             setStat(response.data)
         } catch (error) {
             console.error('Error fetching stats:', error)
@@ -36,7 +36,7 @@ const Stats = () => {
 
     const fetchTeams = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/teams')
+            const response = await axios.get('http://localhost:2000/teams')
             setTeams(response.data)
         } catch (error) {
             console.error('Error fetching teams:', error)
@@ -45,7 +45,7 @@ const Stats = () => {
 
     const fetchTournaments = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/tournaments')
+            const response = await axios.get('http://localhost:2000/tournaments')
             setTournaments(response.data)
         } catch (error) {
             console.error('Error fetching tournaments:', error)
@@ -59,8 +59,8 @@ const Stats = () => {
 
     const handleAddStat = async () => {
         try {
-            await axios.post('http://localhost:5000/stats', newStat)
-            fetchStats();
+            await axios.post('http://localhost:2000/stats', newStat)
+            fetchStats()
             setNewStat({
                 team_id: '',
                 tournament_id: '',
@@ -79,7 +79,7 @@ const Stats = () => {
 
     const handleDeleteStat = async (statId) => {
         try {
-          await axios.delete(`http://localhost:5000/stats?stats_id=${statId}`)
+          await axios.delete(`http://localhost:2000/stats?stats_id=${statId}`)
           fetchStats()
         } catch (error) {
           console.error('Error deleting stat:', error)
@@ -87,27 +87,27 @@ const Stats = () => {
     }
 
     const getTeamNameById = (teamId) => {
-        const team = teams.find(team => team.team_id === teamId);
-        return team ? team.team_name : '';
+        const team = teams.find(team => team.team_id === teamId)
+        return team ? team.team_name : ''
     }
 
     const getTournamentNameById = (tournamentId) => {
-        const tournament = tournaments.find(tournament => tournament.tournament_id === tournamentId);
-        return tournament ? tournament.tournament_name : '';
+        const tournament = tournaments.find(tournament => tournament.tournament_id === tournamentId)
+        return tournament ? tournament.tournament_name : ''
     }
 
     return (
         <>
             <h1 className='mt-[40px] mb-[20px] font-bold'>Stats</h1>
 
-            <div className='mb-[15px] flex flex-row'>
+            <div className='mb-[15px] relative flex flex-row'>
 
                 <select
                     className='w-[94px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
                     name="team_id"
                     value={newStat.team_id}
-                    onChange={handleInputChange}
-                >
+                    onChange={handleInputChange}>
+
                     <option value="">Select Team</option>
                     {teams.map((team) => (
                         <option key={team.team_id} value={team.team_id}>
@@ -120,8 +120,8 @@ const Stats = () => {
                     className='w-[94px] mr-[10px] border-[1px] border-[solid] border-[#232323]'
                     name="tournament_id"
                     value={newStat.tournament_id}
-                    onChange={handleInputChange}
-                >
+                    onChange={handleInputChange}>
+                         
                     <option value="">Select Tournament</option>
                     {tournaments.map((tournament) => (
                         <option key={tournament.tournament_id} value={tournament.tournament_id}>
